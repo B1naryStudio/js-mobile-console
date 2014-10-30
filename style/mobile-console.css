@@ -44,3 +44,15 @@
 .jsmc-log-target{
 	clear: both;
 }
+
+#jsmc-content{
+	background: white;
+}
+
+#jsmc-collapse{
+	cursor: pointer;
+	width: 25px;
+	background: white;
+	text-align: center;
+	color: gray;
+}

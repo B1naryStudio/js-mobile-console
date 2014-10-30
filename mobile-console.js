@@ -9,12 +9,15 @@
 })(this, function () {
 
 	var containerHtml = '' + 
+	'<div id="jsmc-collapse"></div>' +
+	'<div id="jsmc-content">' +
 	'	<input id="jsmc-button" type="button" value="Run"/>' +
 	'	<div id="jsmc-log">' +
-	' </div>' +
+	'	</div>' +
 	'	<div id="jsmc-input-container">' +
 	'		<input id="jsmc-input" type="text" placeholder="type your js here"/>' +
-	' </div>' +
+	'	</div>' +
+	'</div>' +
 	'';
 
 	var logElementHtml = '' +
@@ -25,7 +28,8 @@
 	var mobileConsole = {
 		props: {
 			showOnError: false,
-			proxyConsole: true
+			proxyConsole: true,
+			isCollapsed: false
 		},
 
 		init: function(){
@@ -80,10 +84,27 @@
 			this.$el.input = document.getElementById('jsmc-input');
 			this.$el.button = document.getElementById('jsmc-button');
 			this.$el.log = document.getElementById('jsmc-log');
+			this.$el.content = document.getElementById('jsmc-content');
+			this.$el.collapseControl = document.getElementById('jsmc-collapse');
+
+			if (this.props.isCollapsed){
+				this.$el.content.style.display = 'none';
+				this.isCollapsed = true;
+				this.$el.collapseControl.innerHTML = '&#9650;';
+			} else {
+				this.$el.collapseControl.innerHTML = '&#9660;';				
+			}
 		},
 
 		bindListeners: function(){
 			var self = this;
+			this.$el.collapseControl.addEventListener('click', function(){
+				self.isCollapsed = !self.isCollapsed;
+				var display = self.isCollapsed ? 'none' : 'block';
+				self.$el.content.style.display = display;
+				self.$el.collapseControl.innerHTML = self.isCollapsed ? '&#9650;' : '&#9660;';
+			});
+
 			this.$el.button.addEventListener('click', function(){
 				logValue();
 			});

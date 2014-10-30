@@ -1,4 +1,7 @@
-all: min
+all: min cssmin
 
 min:
-	uglifyjs ./mobile-console.js -o ./mobile-console.min.js -m
+	yuglify ./mobile-console.js
+
+cssmin:
+	yuglify ./style/mobile-console.css

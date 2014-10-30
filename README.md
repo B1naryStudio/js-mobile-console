@@ -25,17 +25,17 @@ Console may be used without any modular system:
 
 With help of browserify:
 ```js
-	var jsConsole = require('js-mobile-console');
+	var mobileConsole = require('js-mobile-console');
 ```
 
 Or AMD style (RequireJS): 
 ```js
-	define(['js-mobile-console'], function(jsConsole))
+	define(['js-mobile-console'], function(mobileConsole))
 ```
 
 The actual usage:
 ```js
-	jsConsole.show(options);
+	mobileConsole.show(options);
 ```
 
 ##Contributing

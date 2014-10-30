@@ -1,4 +1,4 @@
 all: min
 
 min:
-	uglifyjs ./lib/hypnos.js -o ./lib/hypnos.min.js -m
+	uglifyjs ./mobile-console.js -o ./mobile-console.min.js -m

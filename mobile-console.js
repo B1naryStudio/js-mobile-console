@@ -4,7 +4,7 @@
 	} else if (typeof exports === 'object') {
 		module.exports = factory();
 	} else {
-		root.jsConsole = factory();
+		root.mobileConsole = factory();
 	}
 })(this, function () {
 
@@ -22,7 +22,7 @@
 	'	<div class="jsmc-log-target"></div>' +
 	'';
 
-	var jsConsole = {
+	var mobileConsole = {
 		props: {
 			showOnError: false,
 			proxyConsole: true
@@ -54,7 +54,7 @@
 					this.decorateConsole();
 				}
 			}
-			el.style.display = 'block';
+			this.$el.container.style.display = 'block';
 		},
 
 		hide: function(){
@@ -85,6 +85,16 @@
 		bindListeners: function(){
 			var self = this;
 			this.$el.button.addEventListener('click', function(){
+				logValue();
+			});
+
+			this.$el.input.addEventListener('keyup', function(e){
+				if (e.which === 13){
+					logValue();
+				}
+			});
+
+			function logValue(){
 				var val = self.$el.input.value;
 				var text;
 				var error;
@@ -95,7 +105,7 @@
 					error = true;
 				}
 				self.logValue(text, error);
-			});
+			}
 		},
 
 		bindErrorListener: function(){
@@ -153,8 +163,8 @@
 		}
 	};
 
-	jsConsole.decorateConsole();
+	mobileConsole.decorateConsole();
 
-	return jsConsole;
+	return mobileConsole;
 
 });

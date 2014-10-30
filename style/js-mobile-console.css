@@ -1,0 +1,46 @@
+#js-mobile-console{
+	width: 100%;
+	position: fixed;
+	bottom: 10px;
+}
+
+#jsmc-log{
+	border-top: 1px solid black;
+	max-height: 100px;
+	overflow-y: auto;
+	margin-right: 10px;
+}
+
+#jsmc-input-container{
+	position: relative;
+}
+
+#jsmc-input{
+	width: 100%;
+}
+
+#jsmc-button{
+	position: fixed;
+	bottom: 31px;
+	right: 48px;
+}
+
+.jsmc-log-el{
+	color: red;
+}
+
+.jsmc-log-error .jsmc-log-text{
+	color: red;
+}
+
+.jsmc-log-text{
+	color: black;
+}
+
+.jsmc-log-target{
+	color: #7979EF;
+}
+
+.jsmc-log-target{
+	clear: both;
+}

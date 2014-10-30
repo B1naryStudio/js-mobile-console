@@ -1,0 +1,23 @@
+{
+  "name": "js-mobile-console",
+  "version": "0.0.0",
+  "authors": [
+    "msemenistyi <nikeiwe@gmail.com>"
+  ],
+  "description": "JS console emulator for mobile devices",
+  "main": "index.js",
+  "keywords": [
+    "console",
+    "emulator",
+    "debug"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/B1naryStudio/js-mobile-console",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

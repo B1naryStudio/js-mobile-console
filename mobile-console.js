@@ -10,7 +10,7 @@
 
 	var containerHtml = '' + 
 	'<div id="jsmc-collapse"></div>' +
-	'<div id="jsmc-clear">&#x2717;</div>' +
+	'<div id="jsmc-clear">&#xd7</div>' +
 	'<div id="jsmc-content">' +
 	'	<input id="jsmc-button" type="button" value="Run"/>' +
 	'	<div id="jsmc-log">' +
@@ -30,15 +30,24 @@
 		props: {
 			showOnError: false,
 			proxyConsole: true,
-			isCollapsed: false
+			isCollapsed: false,
+			catchErrors: false
 		},
 
 		init: function(){
 			if (!this.initialized){
-				this.bindErrorListener();
+				if (this.props.catchErrors){
+					this.bindErrorListener();
+				}
 				this.initializeContainers();
 				this.bindListeners();
 				this.initialized = true;
+
+				if (this.props.proxyConsole){
+					this.decorateConsole();
+				} else {
+					this.undecorateConsole();
+				}
 			}
 		},
 
@@ -55,9 +64,6 @@
 			var el = document.getElementById('js-mobile-console');
 			if (!el){
 				this.init();
-				if (this.props.proxyConsole){
-					this.decorateConsole();
-				}
 			}
 			this.$el.container.style.display = 'block';
 
@@ -67,9 +73,8 @@
 		},
 
 		hide: function(){
-			var el = document.getElementById('js-mobile-console');
-			if (el){
-				el.style.display = 'none';
+			if (this.$el && this.$el.container){
+				this.$el.container.style.display = 'none';
 			}
 		},
 
@@ -78,7 +83,7 @@
 			el.parentNode.removeChild(el);
 		},
 
-		initializeContainers: function(){
+		initializeContainers: function(options){
 			this.$el = {};
 			el = this.$el.container = document.createElement('div');
 			el.id = 'js-mobile-console';
@@ -176,15 +181,25 @@
 			this.consoleDecorated = true;
 			if (window.console){
 				if (window.console.log){
-					var log = window.console.log;
+					this.oldLog = window.console.log;
 					window.console.log = function(){
 						var args = [].slice.call(arguments);
-						log.apply(window.console, args);
+						self.oldLog.apply(window.console, args);
 						self.logValue(args.join(' '));
 					};
 				}
 			}
 		}, 
+
+		undecorateConsole: function(){
+			var self = this;
+			if (this.consoleDecorated){
+				window.console.log = function(){
+					var args = [].slice.call(arguments);
+					self.oldLog.apply(window.console, args);
+				};
+			}
+		},
 
 		logValue: function(value, error){			
 			var logEl = document.createElement('div');

@@ -1,6 +1,7 @@
 js-mobile-console
 =====
 
+![js-mobile-console](mobile_screen.png)
 
 ## Install
 **Zip archive**:
@@ -9,6 +10,8 @@ js-mobile-console
 **Browserify**:
 > npm install js-mobile-console
 
+[![NPM](https://nodei.co/npm/js-mobile-console.png)](https://nodei.co/npm/js-mobile-console/)
+
 **Bower**:
 > bower install js-mobile-console
 
@@ -16,11 +19,22 @@ js-mobile-console
 
 [Live demo](http://msemenistyi.github.io/js-mobile-console/).
 
-###Usage
+It is extremely nice, that we are on the road of specifying and unifying remote
+debugging protocol and we can already remotely debug web applications on desktop 
+chrome, but what if we want to get it working also on Android browser or 
+Safari for iOs?
+
+MobileConsole can be embedded within any page for debugging, it will catch errors
+and behave exactly as native js console in browser. It also outputs all the logs
+you've written via an API of window.console. 
+
+###Loading
+Css file should be included within html:
+<link rel="stylesheet" href="./style/mobile-console.min.css">
 
 Console may be used without any modular system:
 ```html
-<script src="./js-mobile-console.js"></script>
+<script src="./mobile-console.min.js"></script>
 ```
 
 With help of browserify:
@@ -33,10 +47,49 @@ Or AMD style (RequireJS):
 	define(['js-mobile-console'], function(mobileConsole))
 ```
 
-The actual usage:
+###Usage
+
+Simple usage:
 ```js
-	mobileConsole.show(options);
+	mobileConsole.show();
 ```
+
+Advanced usage: 
+```js
+	mobileConsole.options({
+		showOnError: true,
+		proxyConsole: false,
+		isCollapsed: true,
+		catchErrors: true
+	});
+```
+
+Conditional toggling:
+```js
+	if (condition){
+		mobileConsole.show();
+	} else {
+	mobileConsole.hide();
+}
+```
+
+###API
+
+- **show** - show console with default options.
+- **hide** - hide console.
+- **options** - method to initialize console, by default will show console, 
+accepts hash of options.
+
+###Options
+
+- **showOnError** - *Default* false. Console will be hidden if no show method 
+was called, but it will appear if any error occurs.
+- **proxyConsole** - *Default* true. Determines if window.console methods are 
+proxied to mobile console.
+- **isCollapsed** - *Default* false. Determines if Console is collpased on startup.
+- **catchErrors** - *Default* false. Determines if Console is registring 
+window.onerror method in order to catch errors.
+
 
 ##Contributing
 Feel free to open issues and send PRs. 

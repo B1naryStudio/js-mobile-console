@@ -9,6 +9,7 @@
 	max-height: 100px;
 	overflow-y: auto;
 	margin-right: 10px;
+	font-size: 1em;
 }
 
 #jsmc-input-container{
@@ -50,7 +51,8 @@
 	clear: both;
 }
 
-#jsmc-collapse{
+#jsmc-collapse,
+#jsmc-clear{
 	cursor: pointer;
 	width: 25px;
 	background: white;
@@ -61,11 +63,6 @@
 }
 
 #jsmc-clear{
-	cursor: pointer;
-	width: 25px;
-	background: white;
-	text-align: center;
-	color: gray;
-	border: 1px solid #808080;
-	float: left;
+	font-weight: bolder;
+	display: none;
 }

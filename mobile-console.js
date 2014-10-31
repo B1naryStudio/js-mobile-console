@@ -10,6 +10,7 @@
 
 	var containerHtml = '' + 
 	'<div id="jsmc-collapse"></div>' +
+	'<div id="jsmc-clear">&#x2717;</div>' +
 	'<div id="jsmc-content">' +
 	'	<input id="jsmc-button" type="button" value="Run"/>' +
 	'	<div id="jsmc-log">' +
@@ -50,7 +51,7 @@
 			this.init();
 		},
 
-		show: function(){
+		show: function(options){
 			var el = document.getElementById('js-mobile-console');
 			if (!el){
 				this.init();
@@ -59,6 +60,10 @@
 				}
 			}
 			this.$el.container.style.display = 'block';
+
+			if (options && options.expand){
+				this.toggleCollapsed(false);
+			}
 		},
 
 		hide: function(){
@@ -86,6 +91,7 @@
 			this.$el.log = document.getElementById('jsmc-log');
 			this.$el.content = document.getElementById('jsmc-content');
 			this.$el.collapseControl = document.getElementById('jsmc-collapse');
+			this.$el.clearControl = document.getElementById('jsmc-clear');
 
 			if (this.props.isCollapsed){
 				this.$el.content.style.display = 'none';
@@ -96,13 +102,26 @@
 			}
 		},
 
+		toggleCollapsed: function(toBeCollapsed){
+			this.isCollapsed = typeof toBeCollapsed === 'boolean' ? toBeCollapsed : !this.isCollapsed;
+			var display = this.isCollapsed ? 'none' : 'block';
+			this.$el.content.style.display = display;
+			this.$el.collapseControl.innerHTML = this.isCollapsed ? '&#9650;' : '&#9660;';
+			if (this.isCollapsed){
+				this.$el.clearControl.style.display = 'none';
+			} else {
+				this.$el.clearControl.style.display = 'block';
+			}
+		},
+
 		bindListeners: function(){
 			var self = this;
 			this.$el.collapseControl.addEventListener('click', function(){
-				self.isCollapsed = !self.isCollapsed;
-				var display = self.isCollapsed ? 'none' : 'block';
-				self.$el.content.style.display = display;
-				self.$el.collapseControl.innerHTML = self.isCollapsed ? '&#9650;' : '&#9660;';
+				self.toggleCollapsed();
+			});
+
+			this.$el.clearControl.addEventListener('click', function(){
+				self.clearLogs();
 			});
 
 			this.$el.button.addEventListener('click', function(){
@@ -129,11 +148,15 @@
 			}
 		},
 
+		clearLogs: function(){
+			this.$el.log.innerHTML = '';
+		},
+
 		bindErrorListener: function(){
 			var self = this;
 			window.onerror = function(errorMessage, file, lineNumber, columnNumber){
 				if (self.props.showOnError){
-					self.show();
+					self.show({expand: true});
 				}
 				var error = file + ':' + lineNumber + (columnNumber ? (':' + columnNumber) : '');
 				self.logValue(errorMessage, error);

@@ -5,7 +5,7 @@
 }
 
 #jsmc-log{
-	border-top: 1px solid black;
+	border-top: 1px solid #808080;
 	max-height: 100px;
 	overflow-y: auto;
 	margin-right: 10px;
@@ -47,6 +47,7 @@
 
 #jsmc-content{
 	background: white;
+	clear: both;
 }
 
 #jsmc-collapse{
@@ -55,4 +56,16 @@
 	background: white;
 	text-align: center;
 	color: gray;
+	border: 1px solid #808080;
+	float: left;
+}
+
+#jsmc-clear{
+	cursor: pointer;
+	width: 25px;
+	background: white;
+	text-align: center;
+	color: gray;
+	border: 1px solid #808080;
+	float: left;
 }

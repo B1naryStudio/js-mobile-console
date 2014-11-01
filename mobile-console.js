@@ -31,7 +31,7 @@
 			showOnError: false,
 			proxyConsole: true,
 			isCollapsed: false,
-			catchErrors: false
+			catchErrors: true
 		},
 
 		init: function(){
@@ -100,6 +100,7 @@
 
 			if (this.props.isCollapsed){
 				this.$el.content.style.display = 'none';
+				this.$el.clearControl.style.display = 'none';
 				this.isCollapsed = true;
 				this.$el.collapseControl.innerHTML = '&#9650;';
 			} else {

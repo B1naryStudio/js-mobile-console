@@ -1,6 +1,6 @@
 {
   "name": "js-mobile-console",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "JS console emulator for mobile devices",
   "main": "mobile-console.js",
   "scripts": {

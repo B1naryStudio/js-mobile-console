@@ -1,0 +1,24 @@
+{
+  "name": "js-mobile-console",
+  "version": "0.1.0",
+  "description": "JS console emulator for mobile devices",
+  "main": "mobile-console.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:B1naryStudio/js-mobile-console.git"
+  },
+  "keywords": [
+    "console",
+    "emulator",
+    "debug"
+  ],
+  "author": "msemenistyi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/B1naryStudio/js-mobile-console/issues"
+  },
+  "homepage": "https://github.com/B1naryStudio/js-mobile-console"
+}

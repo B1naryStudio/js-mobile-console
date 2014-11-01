@@ -1,0 +1,32 @@
+{
+  "name": "js-mobile-console",
+  "authors": [
+    "msemenistyi <nikeiwe@gmail.com>"
+  ],
+  "description": "JS console emulator for mobile devices",
+  "main": "index.js",
+  "keywords": [
+    "console",
+    "emulator",
+    "debug"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/B1naryStudio/js-mobile-console",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "4ef071801b",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "4ef071801b69c97ef18f71db50415ad3227be15c"
+  },
+  "_source": "git://github.com/B1naryStudio/js-mobile-console.git",
+  "_target": "*",
+  "_originalSource": "js-mobile-console",
+  "_direct": true
+}

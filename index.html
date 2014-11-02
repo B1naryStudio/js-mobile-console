@@ -2,16 +2,170 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>js-mobile-console</title>
 	<link rel="stylesheet" href="./bower_components/js-mobile-console/style/mobile-console.css">
+	<style>
+		body{
+			background-color: #EDA522;
+		}
+
+		#binary-logo{
+			background: white url(https://camo.githubusercontent.com/eae0e0c2b180f04511a7834a7da764dbd80ad32a/687474703a2f2f7777772e62696e6172792d73747564696f2e636f6d2f696d616765732f6c6f676f2e676966);
+			width: 132px;
+			height: 67px;
+			background-repeat: no-repeat;
+			background-position: 50%;
+		}
+
+
+		h1{
+			text-align: center;
+			font-size: 50px;
+		}
+
+		h2{
+			text-align: center;
+			clear: both;
+		}
+
+		#pre-left, #pre-right{
+			float: left;
+			background: white;
+			padding: 20px;
+			height: 120px;
+			width: 367px;
+			margin-left: 20px;
+		}
+		span#or{
+			float: left;
+			font-weight:bold;
+			font-size: 20px;
+			padding-left: 20px;
+			margin-top: 60px;
+		}
+
+		@media (max-width: 481px){
+			span#or{
+				margin-top: 0px;
+			}
+		}
+
+		@media (max-width: 909px){
+			.wrapped{
+				width: 370px;
+				margin: 0 auto;
+			}
+
+			span#or, #pre-right{
+				clear: both;
+			}
+
+			span#or{
+				margin: 10px 0px;
+				text-align: center;
+				width: 100%;
+				display: block;
+				padding: 0;
+			}
+
+			#pre-left, #pre-right{
+				margin: 0px;
+			}
+
+			#binary-logo{
+				margin: 0 auto;
+				display: block;
+				clear: both;
+				position: relative;
+				top: 10px;
+			}
+
+			#placeholder{
+				height: 100px;
+				position: relative;
+			}
+		}
+
+		@media (min-width: 910px){
+			.wrapped{
+				width: 910px;
+				margin: 0 auto;
+			}
+
+			#binary-logo{
+				position: absolute;
+				bottom: 150px;
+				left: 50%;
+				margin-left: -66px;			
+			}
+		}
+
+		@media (min-width: 604px){
+			.install-wrapper{
+				width: 604px;
+				margin: 0 auto;
+				overflow: hidden;
+			}
+		}
+
+		pre.install{
+			float:left;
+			background: #323030;
+			color: white;
+			margin-left: 20px;
+			padding: 0 15px;
+			line-height: 30px;
+			height: 30px;
+			width: 252px;
+			text-align: center;
+		}
+	</style>
 </head>
 <body>
-	<script src="./bower_components/js-mobile-console/mobile-console.js"></script>
-	<script>
+	<a href="https://github.com/B1naryStudio/js-mobile-console"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+	<h1>js-mobile-console</h1>
+
+	<h2>That's how you install it:</h2>
+
+	<div class="install-wrapper">
+		<pre class="install">
+npm install js-mobile-console
+		</pre>
+
+		<pre class="install">
+bower install js-mobile-console
+		</pre>
+	</div>
+
+	<h2>That's how you integrate it:</h2>
+	<div class="wrapped">
+		<pre id="pre-left">
 	mobileConsole.show();
 	console.log(1);
 	asdf;
-	sdf;
+		</pre>
+		<span id="or">or</span>
+		<pre id="pre-right">
+	mobileConsole.options({
+		showOnError: true,
+		proxyConsole: true,
+		isCollapsed: true,
+		catchErrors: true
+	});
+
+	console.log(1);
+	asdf;
+		</pre>
+	</div>
+	<a id="binary-logo" href="http://binary-studio.com"></a> 
+	<div id="placeholder"></div>
+
+	<script src="./bower_components/js-mobile-console/mobile-console.js"></script>
+	<script>
+		mobileConsole.show();
+		console.log(1);
+		asdf;
 	</script>
 </body>
 </html>

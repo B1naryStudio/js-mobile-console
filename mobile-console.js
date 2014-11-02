@@ -189,6 +189,33 @@
 						self.logValue(args.join(' '));
 					};
 				}
+
+				if (window.console.info){
+					this.oldinfo = window.console.info;
+					window.console.info = function(){
+						var args = [].slice.call(arguments);
+						self.oldinfo.apply(window.console, args);
+						self.logValue(args.join(' '));
+					};
+				}
+
+				if (window.console.warn){
+					this.oldwarn = window.console.warn;
+					window.console.warn = function(){
+						var args = [].slice.call(arguments);
+						self.oldwarn.apply(window.console, args);
+						self.logValue(args.join(' '));
+					};
+				}
+
+				if (window.console.error){
+					this.olderror = window.console.error;
+					window.console.error = function(){
+						var args = [].slice.call(arguments);
+						self.olderror.apply(window.console, args);
+						self.logValue(args.join(' '));
+					};
+				}
 			}
 		}, 
 
@@ -198,6 +225,21 @@
 				window.console.log = function(){
 					var args = [].slice.call(arguments);
 					self.oldLog.apply(window.console, args);
+				};
+
+				window.console.info = function(){
+					var args = [].slice.call(arguments);
+					self.oldinfo.apply(window.console, args);
+				};
+
+				window.console.warn = function(){
+					var args = [].slice.call(arguments);
+					self.oldwarn.apply(window.console, args);
+				};
+
+				window.console.error = function(){
+					var args = [].slice.call(arguments);
+					self.olderror.apply(window.console, args);
 				};
 			}
 		},

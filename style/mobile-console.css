@@ -63,5 +63,6 @@
 }
 
 #jsmc-clear{
-	font-weight: bolder;\
+	font-weight: bolder;
+	height: 19px;
 }

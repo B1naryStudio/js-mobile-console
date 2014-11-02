@@ -17,7 +17,7 @@ js-mobile-console
 
 ##Overview
 
-[Live demo](http://msemenistyi.github.io/js-mobile-console/).
+[Live demo](http://b1narystudio.github.io/js-mobile-console/).
 
 It is extremely nice, that we are on the road of specifying and unifying remote
 debugging protocol and we can already remotely debug web applications on desktop 

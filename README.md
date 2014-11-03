@@ -30,8 +30,9 @@ you've written via an API of window.console.
 
 ###Loading
 Css file should be included within html:
+```html
 <link rel="stylesheet" href="./style/mobile-console.min.css">
-
+```
 Console may be used without any modular system:
 ```html
 <script src="./mobile-console.min.js"></script>

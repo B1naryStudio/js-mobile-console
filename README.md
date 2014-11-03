@@ -39,36 +39,36 @@ Console may be used without any modular system:
 
 With help of browserify:
 ```js
-	var mobileConsole = require('js-mobile-console');
+var mobileConsole = require('js-mobile-console');
 ```
 
 Or AMD style (RequireJS): 
 ```js
-	define(['js-mobile-console'], function(mobileConsole))
+define(['js-mobile-console'], function(mobileConsole))
 ```
 
 ###Usage
 
 Simple usage:
 ```js
-	mobileConsole.show();
+mobileConsole.show();
 ```
 
 Advanced usage: 
 ```js
-	mobileConsole.options({
-		showOnError: true,
-		proxyConsole: false,
-		isCollapsed: true,
-		catchErrors: true
-	});
+mobileConsole.options({
+	showOnError: true,
+	proxyConsole: false,
+	isCollapsed: true,
+	catchErrors: true
+});
 ```
 
 Conditional toggling:
 ```js
-	if (condition){
-		mobileConsole.show();
-	} else {
+if (condition) {
+	mobileConsole.show();
+} else {
 	mobileConsole.hide();
 }
 ```

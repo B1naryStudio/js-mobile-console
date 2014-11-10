@@ -147,8 +147,11 @@
 				try {
 					text = window.eval(val);
 				} catch (e){
-					text = e;
+					text = e.message;
 					error = true;
+				}
+				if (JSON && JSON.stringify){
+					text = JSON.stringify(text);
 				}
 				self.logValue(text, error);
 			}
@@ -186,7 +189,8 @@
 					window.console.log = function(){
 						var args = [].slice.call(arguments);
 						self.oldLog.apply(window.console, args);
-						self.logValue(args.join(' '));
+						var string = stringifyComponents(args);
+						self.logValue(string);
 					};
 				}
 
@@ -195,7 +199,8 @@
 					window.console.info = function(){
 						var args = [].slice.call(arguments);
 						self.oldinfo.apply(window.console, args);
-						self.logValue(args.join(' '));
+						var string = stringifyComponents(args);
+						self.logValue(string);
 					};
 				}
 
@@ -204,7 +209,8 @@
 					window.console.warn = function(){
 						var args = [].slice.call(arguments);
 						self.oldwarn.apply(window.console, args);
-						self.logValue(args.join(' '));
+						var string = stringifyComponents(args);
+						self.logValue(string);
 					};
 				}
 
@@ -213,9 +219,20 @@
 					window.console.error = function(){
 						var args = [].slice.call(arguments);
 						self.olderror.apply(window.console, args);
-						self.logValue(args.join(' '));
+						var string = stringifyComponents(args);
+						self.logValue(string);
 					};
 				}
+			}
+
+			function stringifyComponents(args){
+				if (JSON && JSON.stringify){
+					for (var i = 0; i < args.length; i++){
+						args[i] = JSON.stringify(args[i]);
+					}
+				} 
+
+				return args.join(' ');
 			}
 		}, 
 

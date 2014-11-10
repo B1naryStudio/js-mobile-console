@@ -2,6 +2,7 @@
 	width: 100%;
 	position: fixed;
 	bottom: 10px;
+	z-index: 10000;
 }
 
 #jsmc-log{

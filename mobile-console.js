@@ -282,8 +282,6 @@
 		}
 	};
 
-	mobileConsole.decorateConsole();
-
 	return mobileConsole;
 
 });

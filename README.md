@@ -91,9 +91,19 @@ proxied to mobile console.
 - **catchErrors** - *Default* false. Determines if Console is registring 
 window.onerror method in order to catch errors.
 
+##Created by [msemenistyi](https://github.com/msemenistyi)  
+
+##Changelog
+
+### 0.3.0 (2014-11-11)
+- add possibility to specify commands;
+- add JSON.stringifying for logging;
+- set z-index to console
+- fix startup error on logValue
 
 ##Contributing
 Feel free to open issues and send PRs. 
+
 
 ## License
 

@@ -17,7 +17,7 @@ js-mobile-console
 
 ##Overview
 
-[Live demo](http://msemenistyi.github.io/js-mobile-console/).
+[Live demo](http://b1narystudio.github.io/js-mobile-console/).
 
 It is extremely nice, that we are on the road of specifying and unifying remote
 debugging protocol and we can already remotely debug web applications on desktop 
@@ -30,8 +30,9 @@ you've written via an API of window.console.
 
 ###Loading
 Css file should be included within html:
+```html
 <link rel="stylesheet" href="./style/mobile-console.min.css">
-
+```
 Console may be used without any modular system:
 ```html
 <script src="./mobile-console.min.js"></script>
@@ -39,36 +40,36 @@ Console may be used without any modular system:
 
 With help of browserify:
 ```js
-	var mobileConsole = require('js-mobile-console');
+var mobileConsole = require('js-mobile-console');
 ```
 
 Or AMD style (RequireJS): 
 ```js
-	define(['js-mobile-console'], function(mobileConsole))
+define(['js-mobile-console'], function(mobileConsole))
 ```
 
 ###Usage
 
 Simple usage:
 ```js
-	mobileConsole.show();
+mobileConsole.show();
 ```
 
 Advanced usage: 
 ```js
-	mobileConsole.options({
-		showOnError: true,
-		proxyConsole: false,
-		isCollapsed: true,
-		catchErrors: true
-	});
+mobileConsole.options({
+	showOnError: true,
+	proxyConsole: false,
+	isCollapsed: true,
+	catchErrors: true
+});
 ```
 
 Conditional toggling:
 ```js
-	if (condition){
-		mobileConsole.show();
-	} else {
+if (condition) {
+	mobileConsole.show();
+} else {
 	mobileConsole.hide();
 }
 ```
@@ -90,9 +91,19 @@ proxied to mobile console.
 - **catchErrors** - *Default* false. Determines if Console is registring 
 window.onerror method in order to catch errors.
 
+##Created by [msemenistyi](https://github.com/msemenistyi)  
+
+##Changelog
+
+### 0.3.0 (2014-11-11)
+- add possibility to specify commands;
+- add JSON.stringifying for logging;
+- set z-index to console
+- fix startup error on logValue
 
 ##Contributing
 Feel free to open issues and send PRs. 
+
 
 ## License
 

@@ -4,7 +4,7 @@
     "msemenistyi <nikeiwe@gmail.com>"
   ],
   "description": "JS console emulator for mobile devices",
-  "main": "index.js",
+  "main": "mobile-console.js",
   "keywords": [
     "console",
     "emulator",
@@ -19,11 +19,11 @@
     "test",
     "tests"
   ],
-  "_release": "582a2fff5f",
+  "_release": "4be2a2314d",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "582a2fff5f7f1276fe7462bad12e83e4133b7741"
+    "commit": "4be2a2314ddba81bee2e25dd8efffbf2ecd4f62c"
   },
   "_source": "git://github.com/B1naryStudio/js-mobile-console.git",
   "_target": "*",

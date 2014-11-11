@@ -1,11 +1,11 @@
 {
   "name": "js-mobile-console",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "authors": [
     "msemenistyi <nikeiwe@gmail.com>"
   ],
   "description": "JS console emulator for mobile devices",
-  "main": "index.js",
+  "main": "mobile-console.js",
   "keywords": [
     "console",
     "emulator",

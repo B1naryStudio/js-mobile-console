@@ -144,6 +144,11 @@ bower install js-mobile-console
 	mobileConsole.show();
 	console.log(1);
 	asdf;
+	
+	mobileConsole.commands({
+		'check': 'var a = 10; a;',
+		'run': '10/5'
+	});
 		</pre>
 		<span id="or">or</span>
 		<pre id="pre-right">
@@ -164,6 +169,12 @@ bower install js-mobile-console
 	<script src="./bower_components/js-mobile-console/mobile-console.js"></script>
 	<script>
 		mobileConsole.show();
+
+		mobileConsole.commands({
+			'check': 'var a = 10; a;',
+			'run': '10/5'
+		});
+
 		console.log(1);
 		asdf;
 	</script>

@@ -35,6 +35,10 @@
 	color: red;
 }
 
+.jsmc-log-command .jsmc-log-text{
+	color: #009EE4;
+}
+
 .jsmc-log-text{
 	color: black;
 }
@@ -53,6 +57,7 @@
 }
 
 #jsmc-collapse,
+#jsmc-commands,
 #jsmc-clear{
 	cursor: pointer;
 	width: 25px;
@@ -60,10 +65,25 @@
 	text-align: center;
 	color: gray;
 	border: 1px solid #808080;
-	float: left;
+	display: inline-block;
 }
 
 #jsmc-clear{
 	font-weight: bolder;
 	height: 19px;
+}
+
+#jsmc-commands-container{
+	background: #FFF;
+	display: none;
+}
+
+.jsmc-command-wrapper{
+	border-bottom: 1px solid #808080;
+	padding: 0px 14px;
+	cursor: pointer;
+}
+
+.jsmc-command:last-child{
+	border-bottom: none;
 }

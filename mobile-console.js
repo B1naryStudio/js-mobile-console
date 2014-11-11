@@ -11,6 +11,8 @@
 	var containerHtml = '' + 
 	'<div id="jsmc-collapse"></div>' +
 	'<div id="jsmc-clear">&#xd7</div>' +
+	'<div id="jsmc-commands">&#x2261</div>' +
+	'<div id="jsmc-commands-container"></div>' +	
 	'<div id="jsmc-content">' +
 	'	<input id="jsmc-button" type="button" value="Run"/>' +
 	'	<div id="jsmc-log">' +
@@ -35,6 +37,7 @@
 		},
 
 		init: function(){
+			this.commandsHash = [];
 			if (!this.initialized){
 				if (this.props.catchErrors){
 					this.bindErrorListener();
@@ -78,6 +81,53 @@
 			}
 		},
 
+		commands: function(commands){
+			if (typeof commands !== 'object'){
+				throw new Error('mobileConsole: commands method accepts object, not ' + typeof commands);
+			}
+			this.commandsHash = commands;
+			this.commandsHashLength = 0;
+			for (var i in commands){
+				if (commands.hasOwnProperty(i)){
+					this.commandsHashLength++;
+				}
+			}
+			if (this.commandsHashLength){
+				this.populateCommandsContainer_();
+			}
+		},
+
+		populateCommandsContainer_: function(){
+			var self = this;
+			for (var i in this.commandsHash){
+				if (this.commandsHash.hasOwnProperty(i)){					
+					var commandEl = document.createElement('div');
+					commandEl.className = 'jsmc-command';
+					commandEl.innerHTML = i;
+					commandEl.command = this.commandsHash[i];
+					
+					var commandElContainer = document.createElement('div');
+					commandElContainer.className = 'jsmc-command-wrapper';
+
+					commandElContainer.appendChild(commandEl);
+					this.$el.commandsContainer.appendChild(commandElContainer);
+				}
+			}
+
+			if (!this.commandsPopulated){
+				this.$el.commandsContainer.addEventListener('click', function(event){
+					if (event.target.className === 'jsmc-command'){
+						var command = event.target.command;
+						var res = self.eval(command);
+						self.logValue(command, false, true);
+						self.logValue(res.text, res.error);
+					}
+				});
+			}
+
+			this.commandsPopulated = true;
+		},
+		
 		destroy: function(){
 			var el = document.getElementById('js-mobile-console');
 			el.parentNode.removeChild(el);
@@ -97,10 +147,13 @@
 			this.$el.content = document.getElementById('jsmc-content');
 			this.$el.collapseControl = document.getElementById('jsmc-collapse');
 			this.$el.clearControl = document.getElementById('jsmc-clear');
+			this.$el.commandsControl = document.getElementById('jsmc-commands');
+			this.$el.commandsContainer = document.getElementById('jsmc-commands-container');
 
 			if (this.props.isCollapsed){
 				this.$el.content.style.display = 'none';
 				this.$el.clearControl.style.display = 'none';
+				this.$el.commandsControl.style.display = 'none';
 				this.isCollapsed = true;
 				this.$el.collapseControl.innerHTML = '&#9650;';
 			} else {
@@ -115,8 +168,12 @@
 			this.$el.collapseControl.innerHTML = this.isCollapsed ? '&#9650;' : '&#9660;';
 			if (this.isCollapsed){
 				this.$el.clearControl.style.display = 'none';
+				this.$el.commandsControl.style.display = 'none';
 			} else {
-				this.$el.clearControl.style.display = 'block';
+				this.$el.clearControl.style.display = 'inline-block';
+				if (this.commandsHashLength){
+					this.$el.commandsControl.style.display = 'inline-block';
+				}
 			}
 		},
 
@@ -140,21 +197,39 @@
 				}
 			});
 
+			this.$el.commandsControl.addEventListener('click', function(){
+				self.toggleCommands();
+			});
+
 			function logValue(){
 				var val = self.$el.input.value;
-				var text;
-				var error;
-				try {
-					text = window.eval(val);
-				} catch (e){
-					text = e.message;
-					error = true;
-				}
-				if (JSON && JSON.stringify){
-					text = JSON.stringify(text);
-				}
-				self.logValue(text, error);
+				var res = self.eval(val);
+				self.logValue(res.text, res.error);
 			}
+		},
+
+		toggleCommands: function(){
+			this.commandsShown = !this.commandsShown;
+			this.$el.commandsContainer.style.display = this.commandsShown ? 
+				'inline-block' : 'none';
+		},
+
+		eval: function(command){
+			var text;
+			var error;
+			try {
+				text = window.eval(command);
+			} catch (e){
+				text = e.message;
+				error = true;
+			}
+			if (JSON && JSON.stringify){
+				text = JSON.stringify(text);
+			}
+			return {
+				text: text,
+				error: error
+			};
 		},
 
 		clearLogs: function(){
@@ -261,13 +336,17 @@
 			}
 		},
 
-		logValue: function(value, error){			
+		logValue: function(value, error, command){			
 			var logEl = document.createElement('div');
 			logEl.className = 'jsmc-log-el';
 			logEl.innerHTML = logElementHtml;
 
 			if (error){
 				logEl.className += ' jsmc-log-error';
+			}
+
+			if (command){
+				logEl.className += ' jsmc-log-command';
 			}
 
 			var logTextEl = logEl.getElementsByClassName('jsmc-log-text')[0];

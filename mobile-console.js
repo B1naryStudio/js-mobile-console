@@ -224,7 +224,12 @@
 				error = true;
 			}
 			if (JSON && JSON.stringify){
-				text = JSON.stringify(text);
+				try{
+					text = JSON.stringify(text);
+				} catch(e){
+					text = e.message;
+					error = true;					
+				}
 			}
 			return {
 				text: text,
@@ -264,8 +269,8 @@
 					window.console.log = function(){
 						var args = [].slice.call(arguments);
 						self.oldLog.apply(window.console, args);
-						var string = stringifyComponents(args);
-						self.logValue(string);
+						var res = stringifyComponents(args);
+						self.logValue(res.text, res.error);
 					};
 				}
 
@@ -274,8 +279,8 @@
 					window.console.info = function(){
 						var args = [].slice.call(arguments);
 						self.oldinfo.apply(window.console, args);
-						var string = stringifyComponents(args);
-						self.logValue(string);
+						var res = stringifyComponents(args);
+						self.logValue(res.text, res.error);
 					};
 				}
 
@@ -284,8 +289,8 @@
 					window.console.warn = function(){
 						var args = [].slice.call(arguments);
 						self.oldwarn.apply(window.console, args);
-						var string = stringifyComponents(args);
-						self.logValue(string);
+						var res = stringifyComponents(args);
+						self.logValue(res.text, res.error);
 					};
 				}
 
@@ -294,20 +299,25 @@
 					window.console.error = function(){
 						var args = [].slice.call(arguments);
 						self.olderror.apply(window.console, args);
-						var string = stringifyComponents(args);
-						self.logValue(string);
+						var res = stringifyComponents(args);
+						self.logValue(res.text, res.error);
 					};
 				}
 			}
 
 			function stringifyComponents(args){
 				if (JSON && JSON.stringify){
-					for (var i = 0; i < args.length; i++){
-						args[i] = JSON.stringify(args[i]);
+					try{
+						for (var i = 0; i < args.length; i++){
+							args[i] = JSON.stringify(args[i]);
+						}
+					} catch(e){
+						args = [e.message];
+						var error = true;
 					}
 				} 
 
-				return args.join(' ');
+				return {text: args.join(' '), error: error};
 			}
 		}, 
 

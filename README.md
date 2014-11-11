@@ -28,6 +28,22 @@ MobileConsole can be embedded within any page for debugging, it will catch error
 and behave exactly as native js console in browser. It also outputs all the logs
 you've written via an API of window.console. 
 
+###How is it different from all the existing instruments?
+
+There are already plenty of ways for testing mobile applications. The most 
+advanced is at the moment Chrome remote debugging. Still it is available only 
+Chrome to Chrome.
+
+Another way is to use [weinre](http://people.apache.org/~pmuellr/weinre-docs/latest/) - 
+tool for remote debugging. It is quite nice and suggest rich functionality. Still 
+it seems quite heavy for me. You should setup server, run it and many other stuff.
+
+js-mobile-console is instead lightweight and requires almost no configuration,
+you can just include it into your page and debug it when error appears.
+
+*stevemao* also stated that it may come handy for debugging 
+[web views](https://github.com/B1naryStudio/js-mobile-console/issues/1).
+
 ###Loading
 Css file should be included within html:
 ```html
@@ -74,12 +90,22 @@ if (condition) {
 }
 ```
 
+Commands specifying:
+```js
+mobileConsole.commands({
+	'check': 'var a = 10; a;',
+	'run': '10/5'
+});
+```
+
 ###API
 
 - **show** - show console with default options.
 - **hide** - hide console.
 - **options** - method to initialize console, by default will show console, 
 accepts hash of options.
+- **commands** - method to specify a hash of commands, which later can be 
+executed within console.
 
 ###Options
 

@@ -73,6 +73,10 @@
 	height: 19px;
 }
 
+#jsmc-commands{
+	display: none;
+}
+
 #jsmc-commands-container{
 	background: #FFF;
 	display: none;

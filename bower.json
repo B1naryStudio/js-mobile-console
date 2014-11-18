@@ -5,7 +5,10 @@
     "msemenistyi <nikeiwe@gmail.com>"
   ],
   "description": "JS console emulator for mobile devices",
-  "main": "mobile-console.js",
+  "main": [
+    "mobile-console.js",
+    "style/mobile-console.css"
+  ],
   "keywords": [
     "console",
     "emulator",

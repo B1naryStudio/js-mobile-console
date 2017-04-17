@@ -15,7 +15,7 @@ js-mobile-console
 **Bower**:
 > bower install js-mobile-console
 
-##Overview
+## Overview
 
 [Live demo](http://b1narystudio.github.io/js-mobile-console/).
 
@@ -28,7 +28,7 @@ MobileConsole can be embedded within any page for debugging, it will catch error
 and behave exactly as native js console in browser. It also outputs all the logs
 you've written via an API of window.console. 
 
-###How is it different from all the existing instruments?
+### How is it different from all the existing instruments?
 
 There are already plenty of ways for testing mobile applications. The most 
 advanced is at the moment Chrome remote debugging. Still it is available only 
@@ -44,7 +44,7 @@ you can just include it into your page and debug it when error appears.
 *stevemao* also stated that it may come handy for debugging 
 [web views](https://github.com/B1naryStudio/js-mobile-console/issues/1).
 
-###Loading
+### Loading
 Css file should be included within html:
 ```html
 <link rel="stylesheet" href="./style/mobile-console.min.css">
@@ -64,7 +64,7 @@ Or AMD style (RequireJS):
 define(['js-mobile-console'], function(mobileConsole))
 ```
 
-###Usage
+### Usage
 
 Simple usage:
 ```js
@@ -98,7 +98,7 @@ mobileConsole.commands({
 });
 ```
 
-###API
+### API
 
 - **show** - show console with default options.
 - **hide** - hide console.
@@ -107,7 +107,7 @@ accepts hash of options.
 - **commands** - method to specify a hash of commands, which later can be 
 executed within console.
 
-###Options
+### Options
 
 - **showOnError** - *Default* false. Console will be hidden if no show method 
 was called, but it will appear if any error occurs.
@@ -117,9 +117,9 @@ proxied to mobile console.
 - **catchErrors** - *Default* false. Determines if Console is registring 
 window.onerror method in order to catch errors.
 
-##Created by [msemenistyi](https://github.com/msemenistyi)  
+## Created by [msemenistyi](https://github.com/msemenistyi)  
 
-##Changelog
+## Changelog
 
 ### 0.3.0 (2014-11-11)
 - add possibility to specify commands;
@@ -127,7 +127,7 @@ window.onerror method in order to catch errors.
 - set z-index to console
 - fix startup error on logValue
 
-##Contributing
+## Contributing
 Feel free to open issues and send PRs. 
 
 

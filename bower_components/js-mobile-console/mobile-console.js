@@ -262,60 +262,79 @@
 			if (this.consoleDecorated){
 				return;
 			}
+			self.nativeConsole = {};
 			this.consoleDecorated = true;
 			if (window.console){
-				if (window.console.log){
-					this.oldLog = window.console.log;
-					window.console.log = function(){
-						var args = [].slice.call(arguments);
-						self.oldLog.apply(window.console, args);
-						var res = stringifyComponents(args);
-						self.logValue(res.text, res.error);
-					};
-				}
+				decorateConsoleMethod('log');
+				decorateConsoleMethod('info');
+				decorateConsoleMethod('warn');
+				decorateConsoleMethod('error');
+			}
 
-				if (window.console.info){
-					this.oldinfo = window.console.info;
-					window.console.info = function(){
+			function decorateConsoleMethod(methodName){
+				if (window.console[methodName]){
+					self.nativeConsole[methodName] = window.console[methodName];
+					window.console[methodName] = function(){
 						var args = [].slice.call(arguments);
-						self.oldinfo.apply(window.console, args);
-						var res = stringifyComponents(args);
-						self.logValue(res.text, res.error);
-					};
-				}
-
-				if (window.console.warn){
-					this.oldwarn = window.console.warn;
-					window.console.warn = function(){
-						var args = [].slice.call(arguments);
-						self.oldwarn.apply(window.console, args);
-						var res = stringifyComponents(args);
-						self.logValue(res.text, res.error);
-					};
-				}
-
-				if (window.console.error){
-					this.olderror = window.console.error;
-					window.console.error = function(){
-						var args = [].slice.call(arguments);
-						self.olderror.apply(window.console, args);
+						self.nativeConsole[methodName].apply(window.console, args);
 						var res = stringifyComponents(args);
 						self.logValue(res.text, res.error);
 					};
 				}
 			}
 
-			function stringifyComponents(args){
+			function stringifyComponents(inputArgs){
+				var args = [].slice.call(inputArgs);
 				if (JSON && JSON.stringify){
 					try{
 						for (var i = 0; i < args.length; i++){
-							args[i] = JSON.stringify(args[i]);
+							if (typeof args[i] === 'string'){
+								args[i] = args[i].replace('\n', '<br>');
+
+								var res = handleStyles(i, args);
+								args[i] = res.string;
+								args.splice(i + 1, res.nextElement - 1);
+								continue;
+							} else {
+								var containsUndefined = false;
+								args[i] = JSON.stringify(args[i], function(key, value) { 
+									//preserve undefined in output after stringify
+									if (value === undefined) { 
+										containsUndefined = true;
+										return '$$_|_undefined_|_$$'; 
+									} 
+									return value; 
+								});
+
+								if (containsUndefined){
+									args[i] = args[i].replace('"$$_|_undefined_|_$$"', 'undefined');
+								}
+							}
 						}
 					} catch(e){
 						args = [e.message];
 						var error = true;
 					}
 				} 
+
+				function handleStyles(index, args){
+					var blocks = args[index].split('%c');
+					var string = args[index];
+					var nextElement = index + 1;
+					if (blocks.length > 1){
+						var i = 1;
+						while (i < blocks.length){
+							var style = args[nextElement] || "";
+							var styleString = '<span style="' + style  + '">'
+							blocks.splice(i, 0, styleString);
+							blocks.splice(i + 2, 0, '</span>');
+							nextElement++;
+							i = i + 3;
+						}
+						string = blocks.join('');
+					}
+					return {string: string, nextElement: nextElement}
+				}
 
 				return {text: args.join(' '), error: error};
 			}
@@ -324,24 +343,16 @@
 		undecorateConsole: function(){
 			var self = this;
 			if (this.consoleDecorated){
-				window.console.log = function(){
-					var args = [].slice.call(arguments);
-					self.oldLog.apply(window.console, args);
-				};
+				undecorateConsoleMethod['log'];
+				undecorateConsoleMethod['info'];
+				undecorateConsoleMethod['warn'];
+				undecorateConsoleMethod['error'];
+			}
 
-				window.console.info = function(){
+			function undecorateConsoleMethod(methodName){
+				window.console[methodName] = function(){
 					var args = [].slice.call(arguments);
-					self.oldinfo.apply(window.console, args);
-				};
-
-				window.console.warn = function(){
-					var args = [].slice.call(arguments);
-					self.oldwarn.apply(window.console, args);
-				};
-
-				window.console.error = function(){
-					var args = [].slice.call(arguments);
-					self.olderror.apply(window.console, args);
+					self.nativeConsole[methodName].apply(window.console, args);
 				};
 			}
 		},

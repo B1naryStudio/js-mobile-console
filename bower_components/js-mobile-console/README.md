@@ -15,20 +15,36 @@ js-mobile-console
 **Bower**:
 > bower install js-mobile-console
 
-##Overview
+## Overview
 
 [Live demo](http://b1narystudio.github.io/js-mobile-console/).
 
 It is extremely nice, that we are on the road of specifying and unifying remote
 debugging protocol and we can already remotely debug web applications on desktop 
-chrome, but what if we want to get it working also on Android browser or 
+Chrome, but what if we want to get it working also on Android browser or 
 Safari for iOs?
 
 MobileConsole can be embedded within any page for debugging, it will catch errors
 and behave exactly as native js console in browser. It also outputs all the logs
 you've written via an API of window.console. 
 
-###Loading
+### How is it different from all the existing instruments?
+
+There are already plenty of ways for testing mobile applications. The most 
+advanced is at the moment Chrome remote debugging. Still it is available only 
+Chrome to Chrome.
+
+Another way is to use [weinre](http://people.apache.org/~pmuellr/weinre-docs/latest/) - 
+tool for remote debugging. It is quite nice and suggests rich functionality. Still 
+it seems quite heavy for me. You should setup a dedicated server for it.
+
+js-mobile-console is in contrast lightweight and requires almost no configuration,
+you can just include it into your page and debug it when an error appears.
+
+*stevemao* also stated that it may come handy for debugging 
+[web views](https://github.com/B1naryStudio/js-mobile-console/issues/1).
+
+### Loading
 Css file should be included within html:
 ```html
 <link rel="stylesheet" href="./style/mobile-console.min.css">
@@ -48,7 +64,7 @@ Or AMD style (RequireJS):
 define(['js-mobile-console'], function(mobileConsole))
 ```
 
-###Usage
+### Usage
 
 Simple usage:
 ```js
@@ -74,14 +90,24 @@ if (condition) {
 }
 ```
 
-###API
+Commands specifying:
+```js
+mobileConsole.commands({
+	'check': 'var a = 10; a;',
+	'run': '10/5'
+});
+```
+
+### API
 
 - **show** - show console with default options.
 - **hide** - hide console.
 - **options** - method to initialize console, by default will show console, 
 accepts hash of options.
+- **commands** - method to specify a hash of commands, which later can be 
+executed within console.
 
-###Options
+### Options
 
 - **showOnError** - *Default* false. Console will be hidden if no show method 
 was called, but it will appear if any error occurs.
@@ -91,9 +117,16 @@ proxied to mobile console.
 - **catchErrors** - *Default* false. Determines if Console is registring 
 window.onerror method in order to catch errors.
 
-##Created by [msemenistyi](https://github.com/msemenistyi)  
+## Created by [msemenistyi](https://github.com/msemenistyi)  
 
-##Changelog
+## Changelog
+
+### 0.4.0 (2018-10-24)
+- fix handling of undefined
+- added ability to style output with %c
+
+### 0.3.3 (2018-10-24)
+- add possibility to add line breaks in console.log strings with \n
 
 ### 0.3.0 (2014-11-11)
 - add possibility to specify commands;
@@ -101,7 +134,7 @@ window.onerror method in order to catch errors.
 - set z-index to console
 - fix startup error on logValue
 
-##Contributing
+## Contributing
 Feel free to open issues and send PRs. 
 
 
@@ -109,8 +142,8 @@ Feel free to open issues and send PRs.
 
 The MIT License (MIT)
 
-[![Binary Studio](http://www.binary-studio.com/images/logo.gif)](http://binary-studio.com)  
-Copyright (c) 2014 Semenistyi Mykyta nikeiwe@gmail.com
+[![Binary Studio](https://d3ot0t2g92r1ra.cloudfront.net/img/binary-small-logo.png)](http://binary-studio.com)  
+Copyright (c) 2014-2018 Semenistyi Mykyta nikeiwe@gmail.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -291,7 +291,19 @@
 							if (typeof args[i] === 'string'){
 								args[i] = args[i].replace('\n', '<br>');
 							} else {
-								args[i] = JSON.stringify(args[i]);
+								var containsUndefined = false;
+								args[i] = JSON.stringify(args[i], function(key, value) { 
+									//preserve undefined in output after stringify
+									if (value === undefined) { 
+										containsUndefined = true;
+										return '$$_|_undefined_|_$$'; 
+									} 
+									return value; 
+								});
+
+								if (containsUndefined){
+									args[i] = args[i].replace('"$$_|_undefined_|_$$"', 'undefined');
+								}
 							}
 						}
 					} catch(e){

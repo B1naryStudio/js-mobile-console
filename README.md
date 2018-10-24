@@ -121,6 +121,9 @@ window.onerror method in order to catch errors.
 
 ## Changelog
 
+### 0.3.2 (2018-10-24)
+- add possibility to add line breaks in console.log strings with \n
+
 ### 0.3.0 (2014-11-11)
 - add possibility to specify commands;
 - add JSON.stringifying for logging;

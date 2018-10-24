@@ -21,7 +21,7 @@ js-mobile-console
 
 It is extremely nice, that we are on the road of specifying and unifying remote
 debugging protocol and we can already remotely debug web applications on desktop 
-chrome, but what if we want to get it working also on Android browser or 
+Chrome, but what if we want to get it working also on Android browser or 
 Safari for iOs?
 
 MobileConsole can be embedded within any page for debugging, it will catch errors
@@ -35,11 +35,11 @@ advanced is at the moment Chrome remote debugging. Still it is available only
 Chrome to Chrome.
 
 Another way is to use [weinre](http://people.apache.org/~pmuellr/weinre-docs/latest/) - 
-tool for remote debugging. It is quite nice and suggest rich functionality. Still 
-it seems quite heavy for me. You should setup server, run it and many other stuff.
+tool for remote debugging. It is quite nice and suggests rich functionality. Still 
+it seems quite heavy for me. You should setup a dedicated server for it.
 
-js-mobile-console is instead lightweight and requires almost no configuration,
-you can just include it into your page and debug it when error appears.
+js-mobile-console is in contrast lightweight and requires almost no configuration,
+you can just include it into your page and debug it when an error appears.
 
 *stevemao* also stated that it may come handy for debugging 
 [web views](https://github.com/B1naryStudio/js-mobile-console/issues/1).
@@ -121,7 +121,11 @@ window.onerror method in order to catch errors.
 
 ## Changelog
 
-### 0.3.2 (2018-10-24)
+### 0.4.0 (2018-10-24)
+- fix handling of undefined
+- added ability to style output with %c
+
+### 0.3.3 (2018-10-24)
 - add possibility to add line breaks in console.log strings with \n
 
 ### 0.3.0 (2014-11-11)
@@ -138,7 +142,7 @@ Feel free to open issues and send PRs.
 
 The MIT License (MIT)
 
-[![Binary Studio](http://www.binary-studio.com/wp-content/uploads/2014/11/logo.gif)](http://binary-studio.com)  
+[![Binary Studio](https://d3ot0t2g92r1ra.cloudfront.net/img/binary-small-logo.png)](http://binary-studio.com)  
 Copyright (c) 2014-2018 Semenistyi Mykyta nikeiwe@gmail.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

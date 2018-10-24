@@ -305,11 +305,16 @@
 				}
 			}
 
-			function stringifyComponents(args){
+			function stringifyComponents(inputArgs){
+				var args = [].slice.call(inputArgs);
 				if (JSON && JSON.stringify){
 					try{
 						for (var i = 0; i < args.length; i++){
-							args[i] = JSON.stringify(args[i]);
+							if (typeof args[i] === 'string'){
+								args[i] = args[i].replace('\n', '<br>');
+							} else {
+								args[i] = JSON.stringify(args[i]);
+							}
 						}
 					} catch(e){
 						args = [e.message];

@@ -262,43 +262,21 @@
 			if (this.consoleDecorated){
 				return;
 			}
+			self.nativeConsole = {};
 			this.consoleDecorated = true;
 			if (window.console){
-				if (window.console.log){
-					this.oldLog = window.console.log;
-					window.console.log = function(){
-						var args = [].slice.call(arguments);
-						self.oldLog.apply(window.console, args);
-						var res = stringifyComponents(args);
-						self.logValue(res.text, res.error);
-					};
-				}
+				decorateConsoleMethod('log');
+				decorateConsoleMethod('info');
+				decorateConsoleMethod('warn');
+				decorateConsoleMethod('error');
+			}
 
-				if (window.console.info){
-					this.oldinfo = window.console.info;
-					window.console.info = function(){
+			function decorateConsoleMethod(methodName){
+				if (window.console[methodName]){
+					self.nativeConsole[methodName] = window.console[methodName];
+					window.console[methodName] = function(){
 						var args = [].slice.call(arguments);
-						self.oldinfo.apply(window.console, args);
-						var res = stringifyComponents(args);
-						self.logValue(res.text, res.error);
-					};
-				}
-
-				if (window.console.warn){
-					this.oldwarn = window.console.warn;
-					window.console.warn = function(){
-						var args = [].slice.call(arguments);
-						self.oldwarn.apply(window.console, args);
-						var res = stringifyComponents(args);
-						self.logValue(res.text, res.error);
-					};
-				}
-
-				if (window.console.error){
-					this.olderror = window.console.error;
-					window.console.error = function(){
-						var args = [].slice.call(arguments);
-						self.olderror.apply(window.console, args);
+						self.nativeConsole[methodName].apply(window.console, args);
 						var res = stringifyComponents(args);
 						self.logValue(res.text, res.error);
 					};
@@ -329,24 +307,16 @@
 		undecorateConsole: function(){
 			var self = this;
 			if (this.consoleDecorated){
-				window.console.log = function(){
-					var args = [].slice.call(arguments);
-					self.oldLog.apply(window.console, args);
-				};
+				undecorateConsoleMethod['log'];
+				undecorateConsoleMethod['info'];
+				undecorateConsoleMethod['warn'];
+				undecorateConsoleMethod['error'];
+			}
 
-				window.console.info = function(){
+			function undecorateConsoleMethod(methodName){
+				window.console[methodName] = function(){
 					var args = [].slice.call(arguments);
-					self.oldinfo.apply(window.console, args);
-				};
-
-				window.console.warn = function(){
-					var args = [].slice.call(arguments);
-					self.oldwarn.apply(window.console, args);
-				};
-
-				window.console.error = function(){
-					var args = [].slice.call(arguments);
-					self.olderror.apply(window.console, args);
+					self.nativeConsole[methodName].apply(window.console, args);
 				};
 			}
 		},

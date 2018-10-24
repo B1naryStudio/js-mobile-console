@@ -290,6 +290,11 @@
 						for (var i = 0; i < args.length; i++){
 							if (typeof args[i] === 'string'){
 								args[i] = args[i].replace('\n', '<br>');
+
+								var res = handleStyles(i, args);
+								args[i] = res.string;
+								args.splice(i + 1, res.nextElement - 1);
+								continue;
 							} else {
 								var containsUndefined = false;
 								args[i] = JSON.stringify(args[i], function(key, value) { 
@@ -311,6 +316,25 @@
 						var error = true;
 					}
 				} 
+
+				function handleStyles(index, args){
+					var blocks = args[index].split('%c');
+					var string = args[index];
+					var nextElement = index + 1;
+					if (blocks.length > 1){
+						var i = 1;
+						while (i < blocks.length){
+							var style = args[nextElement] || "";
+							var styleString = '<span style="' + style  + '">'
+							blocks.splice(i, 0, styleString);
+							blocks.splice(i + 2, 0, '</span>');
+							nextElement++;
+							i = i + 3;
+						}
+						string = blocks.join('');
+					}
+					return {string: string, nextElement: nextElement}
+				}
 
 				return {text: args.join(' '), error: error};
 			}
